@@ -70,7 +70,7 @@ function Passaro(alturaJogo) {
   this.elemento = novoElemento('img', 'passaro');
   this.elemento.src = '../imgs/passaro.png';
 
-  this.getY =() => parseInt(this.elemento.style.bottom.split('px')[0]);
+  this.getY = () => parseInt(this.elemento.style.bottom.split('px')[0]);
   this.setY = y => this.elemento.style.bottom = `${y}px`;
 
   window.onkeydown = e => voando = true;
@@ -135,7 +135,7 @@ function FlappyBird() {
   const passaro = new Passaro(altura)
 
   areaDoJogo.appendChild(progresso.elemento)
-  areaDoJogo.appendChild(progresso.elemento)
+  areaDoJogo.appendChild(passaro.elemento)
   barreiras.pares.forEach(par => areaDoJogo.appendChild(par.elemento))
 
   this.start = () => {
