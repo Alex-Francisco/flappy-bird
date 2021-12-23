@@ -22,4 +22,44 @@ function ParDeBarreiras(altura, abertura, x) {
 
   this.elemento.appendChild(this.superior.elemento);
   this.elemento.appendChild(this.inferior.elemento);
+
+  this.sortearAbertura = () => {
+    const alturaSuperior = Math.random() * (altura - abertura);
+    const alturaInferior = altura - abertura - alturaSuperior;
+    this.superior.setAltura(alturaSuperior);
+    this.superior.setAltura(alturaInferior);
+  }
+
+  this.getX = () => parseInt(this.elemento.style.left.split('px')[0]);
+  this.setX = x => this.elemento.style.left = `${x}px`;
+  this.getLargura = () => this.elemento.clientWidh;
+
+  this.sortearAbertura();
+  this.setX(x);
+}
+
+function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
+  this.pares = [
+    new ParDeBarreiras(altura, abertura, largura),
+    new ParDeBarreiras(altura, abertura, largura + espaco),
+    new ParDeBarreiras(altura, abertura, largura + espaco * 2),
+    new ParDeBarreiras(altura, abertura, largura + espaco * 3)
+  ]
+
+  const deslocamento = 3
+  this.animar = () => {
+    this.pares.forEach(par => {
+      par.setX(par.getX() - deslocamento)
+
+      if (par.getX() < -par.getLargura()) {
+        par.setX(par.getX() + espaco * this.pares.length)
+        par.sortearAbertura()
+      }
+
+      const meio = largura / 2;
+      const cruzouOMeio = par.getX() + deslocamento >= meio
+        && par.getX() < meio;
+      if(cruzouOMeio) notificarPonto();
+    })
+  }
 }
