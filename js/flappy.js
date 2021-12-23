@@ -27,7 +27,7 @@ function ParDeBarreiras(altura, abertura, x) {
     const alturaSuperior = Math.random() * (altura - abertura);
     const alturaInferior = altura - abertura - alturaSuperior;
     this.superior.setAltura(alturaSuperior);
-    this.superior.setAltura(alturaInferior);
+    this.inferior .setAltura(alturaInferior);
   }
 
   this.getX = () => parseInt(this.elemento.style.left.split('px')[0]);
@@ -100,11 +100,10 @@ function Progresso() {
 }
 
 function estaoSobrepostos(elementoA, elementoB) {
-  const a = elementoA.getBoudingClientRect()
-  const b = elementoB.getBoudingClientRect()
+  const a = elementoA.getBoundingClientRect()
+  const b = elementoB.getBoundingClientRect()
 
   const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left;
-  
   const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top;
 
   return horizontal && vertical
@@ -116,8 +115,7 @@ function colidiu(passaro, barreiras) {
     if (!colidiu) {
       const superior = ParDeBarreiras.superior.elemento
       const inferior = ParDeBarreiras.inferior.elemento
-      colidiu = estaoSobrepostos(passaro.elemento, superior)
-      || estaoSobrepostos(passaro.elemento, inferior)
+      colidiu = estaoSobrepostos(passaro.elemento, superior) || estaoSobrepostos(passaro.elemento, inferior)
     }
   })
   return colidiu
