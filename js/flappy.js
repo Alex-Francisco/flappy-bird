@@ -32,7 +32,7 @@ function ParDeBarreiras(altura, abertura, x) {
 
   this.getX = () => parseInt(this.elemento.style.left.split('px')[0]);
   this.setX = x => this.elemento.style.left = `${x}px`;
-  this.getLargura = () => this.elemento.clientWidh;
+  this.getLargura = () => this.elemento.clientWidth;
 
   this.sortearAbertura();
   this.setX(x);
@@ -77,7 +77,7 @@ function Passaro(alturaJogo) {
   window.onkeyup = e => voando = false;
 
   this.animar = () => {
-    const novoY = this.getY() + (voando ? 8 : -5);
+    const novoY = this.getY() + (voando ? 2 : -3);
     const alturaMaxima = alturaJogo - this.elemento.clientHeight;
 
     if (novoY <= 0) {
